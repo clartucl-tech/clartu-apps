@@ -7,10 +7,10 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8fafc;color:#1e293b;min-height:100vh}
-.header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 24px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,.06);position:sticky;top:0;z-index:10}
-.header-title h1{font-size:17px;font-weight:700;margin:0}
-.header-title p{font-size:11px;color:#94a3b8;margin:0}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 18px;border-radius:10px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:all .15s;text-decoration:none}
+.header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 24px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.header h1{font-size:18px;font-weight:700}
+.header p{font-size:12px;color:#94a3b8}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 18px;border-radius:10px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:all .15s}
 .btn-blue{background:#3b82f6;color:#fff}.btn-blue:hover{background:#2563eb}
 .btn-black{background:#111827;color:#fff}.btn-black:hover{background:#374151}
 .btn-outline{background:#fff;color:#374151;border:1px solid #e2e8f0}.btn-outline:hover{background:#f8fafc}
@@ -23,8 +23,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .key-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px}
 .key-box label{font-size:12px;font-weight:600;color:#1e40af;display:block;margin-bottom:4px}
 .key-box a{color:#3b82f6;font-weight:400}
-input[type=password],input[type=text]{width:100%;border:1px solid #e2e8f0;border-radius:10px;padding:9px 14px;font-size:13px;outline:none;transition:border .15s}
-input:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+input[type=password]{width:100%;border:1px solid #e2e8f0;border-radius:10px;padding:9px 14px;font-size:13px;outline:none;transition:border .15s}
+input:focus{border-color:#3b82f6}
 .spin-wrap{text-align:center;padding:60px}
 .spin{width:40px;height:40px;border:4px solid #3b82f6;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -54,7 +54,7 @@ select.cat-select{font-size:11px;border:1px solid #e2e8f0;border-radius:6px;padd
 
 <div class="header">
   <span style="font-size:22px">📄</span>
-  <div class="header-title">
+  <div>
     <h1>Clartu — Procesador de Cartolas</h1>
     <p>Extrae y categoriza gastos desde tu PDF bancario</p>
   </div>
@@ -62,7 +62,6 @@ select.cat-select{font-size:11px;border:1px solid #e2e8f0;border-radius:6px;padd
 </div>
 
 <div class="wrap">
-  <!-- Keys box -->
   <div class="key-box" id="keyBox" style="display:none">
     <div>
       <label>🔑 API Key de Anthropic <a href="https://console.anthropic.com/settings/keys" target="_blank">(obtener →)</a></label>
@@ -70,13 +69,12 @@ select.cat-select{font-size:11px;border:1px solid #e2e8f0;border-radius:6px;padd
     </div>
     <div>
       <label>📥 Token de integración Notion <a href="https://www.notion.so/profile/integrations/internal" target="_blank">(obtener →)</a></label>
-      <input type="password" id="notionKey" placeholder="secret_..."/>
+      <input type="password" id="notionKey" placeholder="secret_ o ntn_..."/>
     </div>
     <button class="btn btn-blue" style="width:fit-content" onclick="saveKeys()">Guardar claves</button>
     <p style="font-size:11px;color:#64748b">🔒 Tus claves se guardan solo en tu navegador. No se envían a servidores externos.</p>
   </div>
 
-  <!-- Upload -->
   <div id="uploadSection">
     <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
       <div style="font-size:48px;margin-bottom:12px">🧾</div>
@@ -88,7 +86,6 @@ select.cat-select{font-size:11px;border:1px solid #e2e8f0;border-radius:6px;padd
     </div>
   </div>
 
-  <!-- Processing -->
   <div id="processingSection" style="display:none" class="card">
     <div class="spin-wrap">
       <div class="spin"></div>
@@ -97,12 +94,9 @@ select.cat-select{font-size:11px;border:1px solid #e2e8f0;border-radius:6px;padd
     </div>
   </div>
 
-  <!-- Review -->
   <div id="reviewSection" style="display:none">
-    <!-- KPIs -->
     <div class="kpi-grid" id="kpiGrid"></div>
 
-    <!-- Table card -->
     <div class="card" style="padding:0;overflow:hidden;margin-top:16px">
       <div class="toolbar">
         <span style="font-weight:600;font-size:13px">Transacciones</span>
@@ -113,27 +107,13 @@ select.cat-select{font-size:11px;border:1px solid #e2e8f0;border-radius:6px;padd
       </div>
       <div class="table-wrap">
         <table id="txTable">
-          <thead>
-            <tr>
-              <th style="width:32px"></th>
-              <th>Fecha</th>
-              <th>Comercio</th>
-              <th>Categoría</th>
-              <th style="text-align:right">Monto</th>
-            </tr>
-          </thead>
+          <thead><tr><th></th><th>Fecha</th><th>Comercio</th><th>Categoría</th><th style="text-align:right">Monto</th></tr></thead>
           <tbody id="txBody"></tbody>
-          <tfoot>
-            <tr>
-              <td colspan="4" style="padding:11px 12px">Total seleccionado</td>
-              <td style="text-align:right;padding:11px 12px" id="footerTotal"></td>
-            </tr>
-          </tfoot>
+          <tfoot><tr><td colspan="4" style="padding:11px 12px">Total seleccionado</td><td style="text-align:right;padding:11px 12px" id="footerTotal"></td></tr></tfoot>
         </table>
       </div>
     </div>
 
-    <!-- Sync -->
     <div class="card" style="margin-top:16px">
       <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px">
         <span style="font-size:20px">📥</span>
@@ -159,10 +139,10 @@ select.cat-select{font-size:11px;border:1px solid #e2e8f0;border-radius:6px;padd
 const NOTION_DB = "2b1ddb96335d81daabadf8e1a9d1b349";
 const CATS = ["Alimentos","Transporte","Salud","Entretenimiento","Servicios","Vestuario","Tecnología","Restaurantes","Cuotas","Hogar","Salida","Otro"];
 const CAT_CLR = {
-  Alimentos:["#dcfce7","#166534"], Transporte:["#dbeafe","#1e40af"], Salud:["#fee2e2","#991b1b"],
-  Entretenimiento:["#f3e8ff","#6b21a8"], Servicios:["#fef9c3","#92400e"], Vestuario:["#fce7f3","#9d174d"],
-  Tecnología:["#cffafe","#155e75"], Restaurantes:["#ffedd5","#9a3412"], Cuotas:["#f1f5f9","#475569"],
-  Hogar:["#fef3c7","#92400e"], Salida:["#e0e7ff","#3730a3"], Otro:["#f1f5f9","#475569"]
+  Alimentos:["#dcfce7","#166534"],Transporte:["#dbeafe","#1e40af"],Salud:["#fee2e2","#991b1b"],
+  Entretenimiento:["#f3e8ff","#6b21a8"],Servicios:["#fef9c3","#92400e"],Vestuario:["#fce7f3","#9d174d"],
+  Tecnología:["#cffafe","#155e75"],Restaurantes:["#ffedd5","#9a3412"],Cuotas:["#f1f5f9","#475569"],
+  Hogar:["#fef3c7","#92400e"],Salida:["#e0e7ff","#3730a3"],Otro:["#f1f5f9","#475569"]
 };
 const CAT_MAP = {
   Alimentos:"Alimentos",Transporte:"Transporte",Salud:"Salud",Entretenimiento:"Entretenimiento",
@@ -172,8 +152,9 @@ const CAT_MAP = {
 
 let txs = [], sel = {};
 
-function fmt(n) { return "$" + Math.round(n||0).toLocaleString("es-CL"); }
-function getKey(k) { return localStorage.getItem(k) || ""; }
+const fmt = n => "$" + Math.round(n||0).toLocaleString("es-CL");
+const getKey = k => localStorage.getItem(k) || "";
+
 function toggleKeys() {
   const b = document.getElementById("keyBox");
   b.style.display = b.style.display === "none" ? "block" : "none";
@@ -191,17 +172,13 @@ function showNotice(msg) {
   el.textContent = msg; el.style.display = "block";
   setTimeout(() => el.style.display = "none", 3000);
 }
-
 function show(id) { document.getElementById(id).style.display = ""; }
 function hide(id) { document.getElementById(id).style.display = "none"; }
 
 async function handleFile(input) {
   const file = input.files[0]; if (!file) return;
   const apiKey = getKey("clartu_api");
-  if (!apiKey) {
-    document.getElementById("uploadErr").textContent = "Configura tu API Key primero.";
-    toggleKeys(); return;
-  }
+  if (!apiKey) { document.getElementById("uploadErr").textContent = "Configura tu API Key primero."; toggleKeys(); return; }
   document.getElementById("uploadErr").textContent = "";
   hide("uploadSection"); show("processingSection");
 
@@ -247,11 +224,11 @@ Responde SOLO con JSON sin markdown: {"transactions":[{"fecha":"YYYY-MM-DD","com
 
     const data = await resp.json();
     if (data.error) throw new Error(data.error.message);
-    const raw = (data.content || []).find(b => b.type === "text")?.text || "";
-    const clean = raw.replace(/```json|```/g, "").trim();
+    const raw = (data.content||[]).find(b=>b.type==="text")?.text||"";
+    const clean = raw.replace(/```json|```/g,"").trim();
     const parsed = JSON.parse(clean);
-    txs = parsed.transactions.filter(t => t.esGasto !== false).map((t, i) => ({...t, id:i}));
-    sel = {}; txs.forEach(t => { sel[t.id] = true; });
+    txs = parsed.transactions.filter(t=>t.esGasto!==false).map((t,i)=>({...t,id:i}));
+    sel = {}; txs.forEach(t=>{sel[t.id]=true;});
     hide("processingSection");
     renderReview();
     show("reviewSection");
@@ -261,40 +238,29 @@ Responde SOLO con JSON sin markdown: {"transactions":[{"fecha":"YYYY-MM-DD","com
   }
 }
 
-function renderReview() {
-  renderKPIs(); renderTable(); updateTotals();
-}
+function renderReview() { renderKPIs(); renderTable(); updateTotals(); }
 
 function renderKPIs() {
-  const selTxs = txs.filter(t => sel[t.id]);
-  const total = selTxs.reduce((s,t) => s+t.monto, 0);
+  const selTxs = txs.filter(t=>sel[t.id]);
+  const total = selTxs.reduce((s,t)=>s+t.monto,0);
   const bycat = {};
-  selTxs.forEach(t => { bycat[t.categoria] = (bycat[t.categoria]||0) + t.monto; });
+  selTxs.forEach(t=>{bycat[t.categoria]=(bycat[t.categoria]||0)+t.monto;});
   const top = Object.entries(bycat).sort((a,b)=>b[1]-a[1]).slice(0,4);
-  const grid = document.getElementById("kpiGrid");
-  grid.innerHTML = top.map(([cat,sum]) => {
-    const [bg,fg] = CAT_CLR[cat] || ["#f1f5f9","#475569"];
-    return `<div class="kpi" style="background:${bg}">
-      <div class="kpi-label">${cat}</div>
-      <div class="kpi-value" style="color:${fg}">${fmt(sum)}</div>
-      <div class="kpi-sub">${total>0?((sum/total)*100).toFixed(1):0}%</div>
-    </div>`;
+  document.getElementById("kpiGrid").innerHTML = top.map(([cat,sum])=>{
+    const [bg,fg] = CAT_CLR[cat]||["#f1f5f9","#475569"];
+    return `<div class="kpi" style="background:${bg}"><div class="kpi-label">${cat}</div><div class="kpi-value" style="color:${fg}">${fmt(sum)}</div><div class="kpi-sub">${total>0?((sum/total)*100).toFixed(1):0}%</div></div>`;
   }).join("");
 }
 
 function renderTable() {
-  const tbody = document.getElementById("txBody");
-  tbody.innerHTML = txs.map(tx => {
-    const [bg,fg] = CAT_CLR[tx.categoria] || ["#f1f5f9","#475569"];
+  document.getElementById("txBody").innerHTML = txs.map(tx=>{
+    const [bg,fg] = CAT_CLR[tx.categoria]||["#f1f5f9","#475569"];
     const dateStr = (tx.fecha||"").slice(5).replace("-","/");
-    const catOpts = CATS.map(c => `<option value="${c}" ${c===tx.categoria?"selected":""}>${c}</option>`).join("");
+    const catOpts = CATS.map(c=>`<option value="${c}"${c===tx.categoria?" selected":""}>${c}</option>`).join("");
     return `<tr class="${sel[tx.id]?"":"dimmed"}" id="row-${tx.id}">
       <td><input type="checkbox" ${sel[tx.id]?"checked":""} onchange="toggleSel(${tx.id},this.checked)"/></td>
       <td style="color:#94a3b8;white-space:nowrap">${dateStr}</td>
-      <td>
-        <div style="font-weight:500;font-size:12px">${tx.comercio}</div>
-        ${tx.notas?`<div style="font-size:10px;color:#94a3b8">${tx.notas}</div>`:""}
-      </td>
+      <td><div style="font-weight:500;font-size:12px">${tx.comercio}</div>${tx.notas?`<div style="font-size:10px;color:#94a3b8">${tx.notas}</div>`:""}</td>
       <td>
         <span class="badge" style="background:${bg};color:${fg}" onclick="showCatSelect(${tx.id})" id="badge-${tx.id}">${tx.categoria}</span>
         <select class="cat-select" id="sel-${tx.id}" style="display:none" onchange="changeCat(${tx.id},this.value)" onblur="hideCatSelect(${tx.id})">${catOpts}</select>
@@ -304,57 +270,42 @@ function renderTable() {
   }).join("");
 }
 
-function toggleSel(id, checked) {
-  sel[id] = checked;
-  const row = document.getElementById("row-"+id);
-  if (row) row.className = checked ? "" : "dimmed";
-  updateTotals();
-  renderKPIs();
+function toggleSel(id,checked){
+  sel[id]=checked;
+  const row=document.getElementById("row-"+id);
+  if(row)row.className=checked?"":"dimmed";
+  updateTotals(); renderKPIs();
 }
-function selectAll(val) {
-  txs.forEach(t => { sel[t.id] = val; });
-  renderTable(); updateTotals(); renderKPIs();
+function selectAll(val){txs.forEach(t=>{sel[t.id]=val;});renderTable();updateTotals();renderKPIs();}
+function updateTotals(){
+  const selTxs=txs.filter(t=>sel[t.id]);
+  const total=selTxs.reduce((s,t)=>s+t.monto,0);
+  document.getElementById("selCount").textContent=selTxs.length+"/"+txs.length+" seleccionadas";
+  document.getElementById("totalAmount").textContent=fmt(total);
+  document.getElementById("footerTotal").textContent=fmt(total);
+  document.getElementById("syncBtn").textContent=`Enviar ${selTxs.length} gastos → Notion`;
 }
-function updateTotals() {
-  const selTxs = txs.filter(t => sel[t.id]);
-  const total = selTxs.reduce((s,t) => s+t.monto, 0);
-  document.getElementById("selCount").textContent = selTxs.length + "/" + txs.length + " seleccionadas";
-  document.getElementById("totalAmount").textContent = fmt(total);
-  document.getElementById("footerTotal").textContent = fmt(total);
-  document.getElementById("syncBtn").textContent = `Enviar ${selTxs.length} gastos → Notion`;
-}
-function showCatSelect(id) {
-  document.getElementById("badge-"+id).style.display = "none";
-  const s = document.getElementById("sel-"+id);
-  s.style.display = "inline-block";
-  s.focus();
-}
-function hideCatSelect(id) {
-  document.getElementById("badge-"+id).style.display = "inline-block";
-  document.getElementById("sel-"+id).style.display = "none";
-}
-function changeCat(id, cat) {
-  txs = txs.map(t => t.id===id ? {...t, categoria:cat} : t);
-  renderTable(); renderKPIs();
-}
+function showCatSelect(id){document.getElementById("badge-"+id).style.display="none";const s=document.getElementById("sel-"+id);s.style.display="inline-block";s.focus();}
+function hideCatSelect(id){document.getElementById("badge-"+id).style.display="inline-block";document.getElementById("sel-"+id).style.display="none";}
+function changeCat(id,cat){txs=txs.map(t=>t.id===id?{...t,categoria:cat}:t);renderTable();renderKPIs();}
 
 async function syncNotion() {
   const notionKey = getKey("clartu_notion");
   if (!notionKey) { document.getElementById("syncErr").textContent = "Configura tu token de Notion."; toggleKeys(); return; }
-  const selTxs = txs.filter(t => sel[t.id]);
+  const selTxs = txs.filter(t=>sel[t.id]);
   if (!selTxs.length) return;
   document.getElementById("syncBtn").disabled = true;
   document.getElementById("syncBtn").textContent = "Enviando...";
   document.getElementById("syncErr").textContent = "";
   let ok = 0, fail = 0;
+
   for (const tx of selTxs) {
     try {
       const r = await fetch("/api/notion?path=pages", {
         method: "POST",
         headers: {
           "Authorization": "Bearer " + notionKey,
-          "Content-Type": "application/json",
-          "Notion-Version": "2022-06-28"
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           parent: {database_id: NOTION_DB},
@@ -369,26 +320,27 @@ async function syncNotion() {
       if (r.ok) ok++; else fail++;
     } catch { fail++; }
   }
+
   document.getElementById("syncBtn").disabled = false;
   updateTotals();
   showNotice(`✅ ${ok} gastos enviados${fail>0?" ("+fail+" fallaron)":""}`);
 }
 
 function exportCSV() {
-  const selTxs = txs.filter(t => sel[t.id]);
+  const selTxs = txs.filter(t=>sel[t.id]);
   const rows = ["Fecha,Comercio,Categoría,Monto,Notas",
-    ...selTxs.map(t => `${t.fecha},"${t.comercio}","${t.categoria}",${t.monto},"${t.notas||""}"`)
+    ...selTxs.map(t=>`${t.fecha},"${t.comercio}","${t.categoria}",${t.monto},"${t.notas||""}"`)
   ];
   const a = document.createElement("a");
-  a.href = URL.createObjectURL(new Blob([rows.join("\n")], {type:"text/csv"}));
+  a.href = URL.createObjectURL(new Blob([rows.join("\n")],{type:"text/csv"}));
   a.download = "gastos_clartu.csv"; a.click();
 }
 
 function reset() {
-  txs = []; sel = {};
+  txs=[]; sel={};
   hide("reviewSection"); show("uploadSection");
-  document.getElementById("fileInput").value = "";
-  document.getElementById("uploadErr").textContent = "";
+  document.getElementById("fileInput").value="";
+  document.getElementById("uploadErr").textContent="";
 }
 </script>
 </body>
