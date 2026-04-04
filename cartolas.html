@@ -349,7 +349,7 @@ async function syncNotion() {
   let ok = 0, fail = 0;
   for (const tx of selTxs) {
     try {
-      const r = await fetch("https://api.notion.com/v1/pages", {
+      const r = await fetch("/api/notion?path=pages", {
         method: "POST",
         headers: {
           "Authorization": "Bearer " + notionKey,
