@@ -14,6 +14,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .btn-blue{background:#3b82f6;color:#fff}.btn-blue:hover{background:#2563eb}
 .btn-outline{background:#fff;color:#374151;border:1px solid #e2e8f0}.btn-outline:hover{background:#f8fafc}
 .btn-full{width:100%}
+.btn:disabled{opacity:.4;cursor:not-allowed}
 .wrap{max-width:920px;margin:0 auto;padding:24px 16px;display:flex;flex-direction:column;gap:18px}
 .card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:20px}
 .setup-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#f8fafc}
@@ -52,7 +53,7 @@ select{border:1px solid #e2e8f0;border-radius:8px;padding:6px 10px;font-size:13p
     <p style="color:#64748b;font-size:13px;margin-bottom:24px">Conecta tu Notion para ver tus finanzas consolidadas</p>
     <div style="margin-bottom:14px;text-align:left">
       <label>Token de integración Notion <a href="https://www.notion.so/profile/integrations/internal" target="_blank">(obtener →)</a></label>
-      <input type="password" id="tokenInput" placeholder="secret_..." oninput="document.getElementById('connectBtn').disabled=!this.value.this.value.length < 10"/>
+      <input type="password" id="tokenInput" placeholder="secret_ o ntn_..." oninput="document.getElementById('connectBtn').disabled=this.value.length < 10"/>
     </div>
     <p id="setupErr" style="color:#dc2626;font-size:12px;margin-bottom:10px;display:none"></p>
     <button class="btn btn-blue btn-full" id="connectBtn" onclick="connect()" disabled>Conectar y ver dashboard</button>
@@ -81,7 +82,6 @@ select{border:1px solid #e2e8f0;border-radius:8px;padding:6px 10px;font-size:13p
 const DB_GASTOS="2b1ddb96335d81daabadf8e1a9d1b349";
 const DB_LIQS="92bda68b-d35b-4774-aaf8-15ec7606b546";
 const UTM=68306;
-const TRAMOS=[{h:13.5,t:0},{h:30,t:.04},{h:50,t:.08},{h:70,t:.135},{h:90,t:.23},{h:120,t:.304},{h:150,t:.35},{h:1e9,t:.40}];
 const fmt=n=>"$"+Math.round(n||0).toLocaleString("es-CL");
 const pct=n=>((n||0)*100).toFixed(1)+"%";
 const CAT_CLR={Alimentos:"#22c55e",Transporte:"#3b82f6",Salud:"#ef4444",Entretenimiento:"#a855f7",Servicios:"#f59e0b",Salida:"#f97316","Alquiler/hipoteca":"#64748b"};
@@ -89,7 +89,7 @@ let token="",gastos=[],liqs=[],periodos=[];
 
 window.onload=()=>{
   const t=localStorage.getItem("clartu_notion");
-  if(t)document.getElementById("savedBtn").style.display="block";
+  if(t){document.getElementById("savedBtn").style.display="block";}
 };
 function useSaved(){token=localStorage.getItem("clartu_notion")||"";if(token)loadDashboard();}
 function connect(){token=document.getElementById("tokenInput").value.trim();if(!token)return;localStorage.setItem("clartu_notion",token);loadDashboard();}
@@ -101,7 +101,7 @@ async function notionQ(dbId){
     headers:{"Authorization":"Bearer "+token,"Content-Type":"application/json"},
     body:JSON.stringify({page_size:100})
   });
-  if(!r.ok)throw new Error("Error Notion "+r.status+": "+await r.text());
+  if(!r.ok)throw new Error("Error Notion "+r.status+": "+(await r.text()).slice(0,300));
   return(await r.json()).results||[];
 }
 
