@@ -52,7 +52,7 @@ select{border:1px solid #e2e8f0;border-radius:8px;padding:6px 10px;font-size:13p
     <p style="color:#64748b;font-size:13px;margin-bottom:24px">Conecta tu Notion para ver tus finanzas consolidadas</p>
     <div style="margin-bottom:14px;text-align:left">
       <label>Token de integración Notion <a href="https://www.notion.so/profile/integrations/internal" target="_blank">(obtener →)</a></label>
-      <input type="password" id="tokenInput" placeholder="secret_..." oninput="document.getElementById('connectBtn').disabled=!this.value.startsWith('secret_')"/>
+      <input type="password" id="tokenInput" placeholder="secret_..." oninput="document.getElementById('connectBtn').disabled=!this.value.this.value.length < 10"/>
     </div>
     <p id="setupErr" style="color:#dc2626;font-size:12px;margin-bottom:10px;display:none"></p>
     <button class="btn btn-blue btn-full" id="connectBtn" onclick="connect()" disabled>Conectar y ver dashboard</button>
