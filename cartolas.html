@@ -86,14 +86,15 @@ function App(){
       const resp=await fetch("https://api.anthropic.com/v1/messages",{
         method:"POST",
         headers:{"Content-Type":"application/json","x-api-key":apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
-        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:4000,messages:[{role:"user",content:[
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:8000,messages:[{role:"user",content:[
           {type:"document",source:{type:"base64",media_type:"application/pdf",data:base64}},
           {type:"text",text:`Eres un asistente financiero experto en cartolas chilenas. Extrae TODAS las transacciones de gasto. Para cada una indica: fecha (YYYY-MM-DD), comercio (nombre limpio), monto (cuota mensual en CLP entero, positivo), categoria (una de: Alimentos,Transporte,Salud,Entretenimiento,Servicios,Vestuario,Tecnología,Restaurantes,Cuotas,Hogar,Salida,Otro), esGasto (false si es pago/abono/nota crédito), notas (breve). Responde SOLO con JSON: {"transactions":[{...}]}`}
         ]}]})
       });
       const data=await resp.json();
       const raw=data.content?.find(b=>b.type==="text")?.text||"";
-      const parsed=JSON.parse(raw.replace(/```json|```/g,"").trim());
+      // Intentar reparar JSON truncado
+      let jsonStr=raw.replace(/```json|```/g,"").trim());
       const txsFiltered=parsed.transactions.filter(t=>t.esGasto!==false).map((t,i)=>({...t,id:i}));
       setTxs(txsFiltered);
       const s={};txsFiltered.forEach(t=>{s[t.id]=true;});setSel(s);
