@@ -8,14 +8,12 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8fafc;color:#1e293b;min-height:100vh}
 .header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 24px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.header h1{font-size:18px;font-weight:700}
-.header p{font-size:12px;color:#94a3b8}
+.header h1{font-size:18px;font-weight:700}.header p{font-size:12px;color:#94a3b8}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 18px;border-radius:10px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:all .15s}
 .btn-blue{background:#3b82f6;color:#fff}.btn-blue:hover{background:#2563eb}
 .btn-black{background:#111827;color:#fff}.btn-black:hover{background:#374151}
 .btn-outline{background:#fff;color:#374151;border:1px solid #e2e8f0}.btn-outline:hover{background:#f8fafc}
-.btn-sm{padding:5px 12px;font-size:12px}
-.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-sm{padding:5px 12px;font-size:12px}.btn:disabled{opacity:.4;cursor:not-allowed}
 .wrap{max-width:900px;margin:0 auto;padding:28px 16px;display:flex;flex-direction:column;gap:20px}
 .card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:22px}
 .upload-zone{border:2px dashed #cbd5e1;border-radius:16px;padding:56px 24px;text-align:center;cursor:pointer;transition:all .2s}
@@ -32,35 +30,27 @@ input:focus{border-color:#3b82f6}
 @media(max-width:600px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
 .kpi{border-radius:12px;padding:14px}
 .kpi-label{font-size:10px;color:#64748b;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
-.kpi-value{font-size:19px;font-weight:700}
-.kpi-sub{font-size:10px;color:#94a3b8;margin-top:2px}
+.kpi-value{font-size:19px;font-weight:700}.kpi-sub{font-size:10px;color:#94a3b8;margin-top:2px}
 .table-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:12px}
 th{padding:9px 12px;text-align:left;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.04em;background:#f8fafc}
 td{padding:9px 12px;border-top:1px solid #f1f5f9;vertical-align:middle}
-tr.dimmed td{opacity:.4}
-tr:hover td{background:#fafafa}
+tr.dimmed td{opacity:.4}tr:hover td{background:#fafafa}
 tfoot td{background:#f8fafc;font-weight:700;border-top:2px solid #e2e8f0}
 .badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:10px;font-weight:700;cursor:pointer;white-space:nowrap}
 select.cat-select{font-size:11px;border:1px solid #e2e8f0;border-radius:6px;padding:3px 6px;background:#fff}
 .toolbar{padding:11px 16px;background:#f8fafc;border-bottom:1px solid #e2e8f0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .err{color:#dc2626;font-size:12px;margin-top:8px}
-.sync-row{display:flex;gap:10px;flex-wrap:wrap}
-.sync-row .btn{flex:1;min-width:160px}
+.sync-row{display:flex;gap:10px;flex-wrap:wrap}.sync-row .btn{flex:1;min-width:160px}
 #notice{display:none;position:fixed;bottom:20px;right:20px;background:#111827;color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:500;box-shadow:0 4px 20px rgba(0,0,0,.2);z-index:100}
 </style>
 </head>
 <body>
-
 <div class="header">
   <span style="font-size:22px">📄</span>
-  <div>
-    <h1>Clartu — Procesador de Cartolas</h1>
-    <p>Extrae y categoriza gastos desde tu PDF bancario</p>
-  </div>
+  <div><h1>Clartu — Procesador de Cartolas</h1><p>Extrae y categoriza gastos desde tu PDF bancario</p></div>
   <button class="btn btn-outline btn-sm" style="margin-left:auto" onclick="toggleKeys()">⚙️ Configurar claves</button>
 </div>
-
 <div class="wrap">
   <div class="key-box" id="keyBox" style="display:none">
     <div>
@@ -72,20 +62,18 @@ select.cat-select{font-size:11px;border:1px solid #e2e8f0;border-radius:6px;padd
       <input type="password" id="notionKey" placeholder="secret_ o ntn_..."/>
     </div>
     <button class="btn btn-blue" style="width:fit-content" onclick="saveKeys()">Guardar claves</button>
-    <p style="font-size:11px;color:#64748b">🔒 Tus claves se guardan solo en tu navegador. No se envían a servidores externos.</p>
+    <p style="font-size:11px;color:#64748b">🔒 Tus claves se guardan solo en tu navegador.</p>
   </div>
-
   <div id="uploadSection">
     <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
       <div style="font-size:48px;margin-bottom:12px">🧾</div>
       <h2 style="margin-bottom:8px;font-size:18px">Sube tu estado de cuenta</h2>
       <p style="color:#64748b;margin-bottom:20px;font-size:13px">PDF de Santander, BCI, Banco Chile, Scotiabank y más</p>
       <button class="btn btn-blue" onclick="event.stopPropagation();document.getElementById('fileInput').click()">Seleccionar PDF</button>
-      <input type="file" id="fileInput" accept=".pdf" style="display:none" onchange="handleFile(this)"/>
+      <input type="file" id="fileInput" accept=".pdf" style="display:none" onclick="this.value=''" onchange="handleFile(this)"/>
       <p class="err" id="uploadErr"></p>
     </div>
   </div>
-
   <div id="processingSection" style="display:none" class="card">
     <div class="spin-wrap">
       <div class="spin"></div>
@@ -93,10 +81,8 @@ select.cat-select{font-size:11px;border:1px solid #e2e8f0;border-radius:6px;padd
       <p style="color:#94a3b8;font-size:11px;margin-top:6px">Puede tomar 20–40 segundos</p>
     </div>
   </div>
-
   <div id="reviewSection" style="display:none">
     <div class="kpi-grid" id="kpiGrid"></div>
-
     <div class="card" style="padding:0;overflow:hidden;margin-top:16px">
       <div class="toolbar">
         <span style="font-weight:600;font-size:13px">Transacciones</span>
@@ -106,21 +92,17 @@ select.cat-select{font-size:11px;border:1px solid #e2e8f0;border-radius:6px;padd
         <span style="margin-left:auto;font-weight:700;font-size:14px" id="totalAmount"></span>
       </div>
       <div class="table-wrap">
-        <table id="txTable">
+        <table>
           <thead><tr><th></th><th>Fecha</th><th>Comercio</th><th>Categoría</th><th style="text-align:right">Monto</th></tr></thead>
           <tbody id="txBody"></tbody>
           <tfoot><tr><td colspan="4" style="padding:11px 12px">Total seleccionado</td><td style="text-align:right;padding:11px 12px" id="footerTotal"></td></tr></tfoot>
         </table>
       </div>
     </div>
-
     <div class="card" style="margin-top:16px">
       <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px">
         <span style="font-size:20px">📥</span>
-        <div>
-          <div style="font-weight:600">Enviar a Notion</div>
-          <div style="font-size:12px;color:#94a3b8">Se agregarán a tu base de datos Gastos</div>
-        </div>
+        <div><div style="font-weight:600">Enviar a Notion</div><div style="font-size:12px;color:#94a3b8">Se agregarán a tu base de datos Gastos</div></div>
       </div>
       <div class="sync-row">
         <button class="btn btn-black" id="syncBtn" onclick="syncNotion()">Enviar → Notion</button>
@@ -128,220 +110,82 @@ select.cat-select{font-size:11px;border:1px solid #e2e8f0;border-radius:6px;padd
       </div>
       <p class="err" id="syncErr"></p>
     </div>
-
     <button class="btn btn-outline" style="margin-top:4px;width:100%" onclick="reset()">← Procesar otra cartola</button>
   </div>
 </div>
-
 <div id="notice"></div>
-
 <script>
-const NOTION_DB = "2b1ddb96335d81daabadf8e1a9d1b349";
-const CATS = ["Alimentos","Transporte","Salud","Entretenimiento","Servicios","Vestuario","Tecnología","Restaurantes","Cuotas","Hogar","Salida","Otro"];
-const CAT_CLR = {
-  Alimentos:["#dcfce7","#166534"],Transporte:["#dbeafe","#1e40af"],Salud:["#fee2e2","#991b1b"],
-  Entretenimiento:["#f3e8ff","#6b21a8"],Servicios:["#fef9c3","#92400e"],Vestuario:["#fce7f3","#9d174d"],
-  Tecnología:["#cffafe","#155e75"],Restaurantes:["#ffedd5","#9a3412"],Cuotas:["#f1f5f9","#475569"],
-  Hogar:["#fef3c7","#92400e"],Salida:["#e0e7ff","#3730a3"],Otro:["#f1f5f9","#475569"]
-};
-const CAT_MAP = {
-  Alimentos:"Alimentos",Transporte:"Transporte",Salud:"Salud",Entretenimiento:"Entretenimiento",
-  Servicios:"Servicios",Vestuario:"Salida",Tecnología:"Servicios",Restaurantes:"Salida",
-  Cuotas:"Servicios",Hogar:"Alquiler/hipoteca",Salida:"Salida",Otro:"Servicios"
-};
-
-let txs = [], sel = {};
-
-const fmt = n => "$" + Math.round(n||0).toLocaleString("es-CL");
-const getKey = k => localStorage.getItem(k) || "";
-
-function toggleKeys() {
-  const b = document.getElementById("keyBox");
-  b.style.display = b.style.display === "none" ? "block" : "none";
-  document.getElementById("apiKey").value = getKey("clartu_api");
-  document.getElementById("notionKey").value = getKey("clartu_notion");
+const NOTION_DB="2b1ddb96335d81daabadf8e1a9d1b349";
+const CATS=["Alimentos","Transporte","Salud","Entretenimiento","Servicios","Vestuario","Tecnología","Restaurantes","Cuotas","Hogar","Salida","Otro"];
+const CAT_CLR={Alimentos:["#dcfce7","#166534"],Transporte:["#dbeafe","#1e40af"],Salud:["#fee2e2","#991b1b"],Entretenimiento:["#f3e8ff","#6b21a8"],Servicios:["#fef9c3","#92400e"],Vestuario:["#fce7f3","#9d174d"],Tecnología:["#cffafe","#155e75"],Restaurantes:["#ffedd5","#9a3412"],Cuotas:["#f1f5f9","#475569"],Hogar:["#fef3c7","#92400e"],Salida:["#e0e7ff","#3730a3"],Otro:["#f1f5f9","#475569"]};
+const CAT_MAP={Alimentos:"Alimentos",Transporte:"Transporte",Salud:"Salud",Entretenimiento:"Entretenimiento",Servicios:"Servicios",Vestuario:"Salida",Tecnología:"Servicios",Restaurantes:"Salida",Cuotas:"Servicios",Hogar:"Alquiler/hipoteca",Salida:"Salida",Otro:"Servicios"};
+let txs=[],sel={};
+const fmt=n=>"$"+Math.round(n||0).toLocaleString("es-CL");
+const getKey=k=>localStorage.getItem(k)||"";
+function toggleKeys(){const b=document.getElementById("keyBox");b.style.display=b.style.display==="none"?"block":"none";document.getElementById("apiKey").value=getKey("clartu_api");document.getElementById("notionKey").value=getKey("clartu_notion");}
+function saveKeys(){localStorage.setItem("clartu_api",document.getElementById("apiKey").value.trim());localStorage.setItem("clartu_notion",document.getElementById("notionKey").value.trim());document.getElementById("keyBox").style.display="none";showNotice("✅ Claves guardadas");}
+function showNotice(msg){const el=document.getElementById("notice");el.textContent=msg;el.style.display="block";setTimeout(()=>el.style.display="none",3000);}
+function show(id){document.getElementById(id).style.display="";}
+function hide(id){document.getElementById(id).style.display="none";}
+async function handleFile(input){
+  const file=input.files[0];if(!file)return;
+  const apiKey=getKey("clartu_api");
+  if(!apiKey){document.getElementById("uploadErr").textContent="Configura tu API Key primero.";toggleKeys();return;}
+  document.getElementById("uploadErr").textContent="";
+  hide("uploadSection");show("processingSection");
+  const base64=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(",")[1]);r.onerror=rej;r.readAsDataURL(file);});
+  document.getElementById("progressText").textContent="Analizando con IA...";
+  try{
+    const resp=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:8000,messages:[{role:"user",content:[{type:"document",source:{type:"base64",media_type:"application/pdf",data:base64}},{type:"text",text:`Eres un asistente financiero experto en cartolas chilenas. Extrae TODAS las transacciones de gasto. Para cada una indica:\n- fecha: YYYY-MM-DD\n- comercio: nombre limpio\n- monto: cuota mensual en CLP (entero positivo)\n- categoria: Alimentos|Transporte|Salud|Entretenimiento|Servicios|Vestuario|Tecnología|Restaurantes|Cuotas|Hogar|Salida|Otro\n- esGasto: false si es pago/abono/nota crédito\n- notas: descripción breve\nGuías: PedidosYa/Rappi→Restaurantes, Uber→Transporte, Jumbo/Lider→Alimentos, Netflix/Spotify→Entretenimiento, Isapre→Salud, Apple/Microsoft→Tecnología, MONTO CANCELADO→esGasto:false\nResponde SOLO con JSON sin markdown: {"transactions":[{"fecha":"YYYY-MM-DD","comercio":"string","monto":number,"categoria":"string","esGasto":boolean,"notas":"string"}]}`}]}]})});
+    const data=await resp.json();
+    if(data.error)throw new Error(data.error.message);
+    const raw=(data.content||[]).find(b=>b.type==="text")?.text||"";
+    const clean=raw.replace(/```json|```/g,"").trim();
+    const parsed=JSON.parse(clean);
+    txs=parsed.transactions.filter(t=>t.esGasto!==false).map((t,i)=>({...t,id:i}));
+    sel={};txs.forEach(t=>{sel[t.id]=true;});
+    hide("processingSection");renderReview();show("reviewSection");
+  }catch(e){hide("processingSection");show("uploadSection");document.getElementById("uploadErr").textContent="Error: "+e.message;}
 }
-function saveKeys() {
-  localStorage.setItem("clartu_api", document.getElementById("apiKey").value.trim());
-  localStorage.setItem("clartu_notion", document.getElementById("notionKey").value.trim());
-  document.getElementById("keyBox").style.display = "none";
-  showNotice("✅ Claves guardadas");
-}
-function showNotice(msg) {
-  const el = document.getElementById("notice");
-  el.textContent = msg; el.style.display = "block";
-  setTimeout(() => el.style.display = "none", 3000);
-}
-function show(id) { document.getElementById(id).style.display = ""; }
-function hide(id) { document.getElementById(id).style.display = "none"; }
-
-async function handleFile(input) {
-  const file = input.files[0]; if (!file) return;
-  const apiKey = getKey("clartu_api");
-  if (!apiKey) { document.getElementById("uploadErr").textContent = "Configura tu API Key primero."; toggleKeys(); return; }
-  document.getElementById("uploadErr").textContent = "";
-  hide("uploadSection"); show("processingSection");
-
-  const base64 = await new Promise((res, rej) => {
-    const r = new FileReader();
-    r.onload = () => res(r.result.split(",")[1]);
-    r.onerror = rej; r.readAsDataURL(file);
-  });
-
-  document.getElementById("progressText").textContent = "Analizando con IA...";
-
-  try {
-    const resp = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-        "anthropic-dangerous-direct-browser-access": "true"
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 8000,
-        messages: [{
-          role: "user",
-          content: [
-            {type:"document", source:{type:"base64", media_type:"application/pdf", data:base64}},
-            {type:"text", text:`Eres un asistente financiero experto en cartolas chilenas. Extrae TODAS las transacciones de gasto. Para cada una indica:
-- fecha: YYYY-MM-DD
-- comercio: nombre limpio
-- monto: cuota mensual en CLP (entero positivo)
-- categoria: Alimentos|Transporte|Salud|Entretenimiento|Servicios|Vestuario|Tecnología|Restaurantes|Cuotas|Hogar|Salida|Otro
-- esGasto: false si es pago/abono/nota crédito
-- notas: descripción breve
-
-Guías: PedidosYa/Rappi→Restaurantes, Uber→Transporte, Jumbo/Lider→Alimentos, Netflix/Spotify→Entretenimiento, Isapre→Salud, Apple/Microsoft→Tecnología, MONTO CANCELADO→esGasto:false
-
-Responde SOLO con JSON sin markdown: {"transactions":[{"fecha":"YYYY-MM-DD","comercio":"string","monto":number,"categoria":"string","esGasto":boolean,"notas":"string"}]}`}
-          ]
-        }]
-      })
-    });
-
-    const data = await resp.json();
-    if (data.error) throw new Error(data.error.message);
-    const raw = (data.content||[]).find(b=>b.type==="text")?.text||"";
-    const clean = raw.replace(/```json|```/g,"").trim();
-    const parsed = JSON.parse(clean);
-    txs = parsed.transactions.filter(t=>t.esGasto!==false).map((t,i)=>({...t,id:i}));
-    sel = {}; txs.forEach(t=>{sel[t.id]=true;});
-    hide("processingSection");
-    renderReview();
-    show("reviewSection");
-  } catch(e) {
-    hide("processingSection"); show("uploadSection");
-    document.getElementById("uploadErr").textContent = "Error: " + e.message;
-  }
-}
-
-function renderReview() { renderKPIs(); renderTable(); updateTotals(); }
-
-function renderKPIs() {
-  const selTxs = txs.filter(t=>sel[t.id]);
-  const total = selTxs.reduce((s,t)=>s+t.monto,0);
-  const bycat = {};
-  selTxs.forEach(t=>{bycat[t.categoria]=(bycat[t.categoria]||0)+t.monto;});
-  const top = Object.entries(bycat).sort((a,b)=>b[1]-a[1]).slice(0,4);
-  document.getElementById("kpiGrid").innerHTML = top.map(([cat,sum])=>{
-    const [bg,fg] = CAT_CLR[cat]||["#f1f5f9","#475569"];
-    return `<div class="kpi" style="background:${bg}"><div class="kpi-label">${cat}</div><div class="kpi-value" style="color:${fg}">${fmt(sum)}</div><div class="kpi-sub">${total>0?((sum/total)*100).toFixed(1):0}%</div></div>`;
-  }).join("");
-}
-
-function renderTable() {
-  document.getElementById("txBody").innerHTML = txs.map(tx=>{
-    const [bg,fg] = CAT_CLR[tx.categoria]||["#f1f5f9","#475569"];
-    const dateStr = (tx.fecha||"").slice(5).replace("-","/");
-    const catOpts = CATS.map(c=>`<option value="${c}"${c===tx.categoria?" selected":""}>${c}</option>`).join("");
-    return `<tr class="${sel[tx.id]?"":"dimmed"}" id="row-${tx.id}">
-      <td><input type="checkbox" ${sel[tx.id]?"checked":""} onchange="toggleSel(${tx.id},this.checked)"/></td>
-      <td style="color:#94a3b8;white-space:nowrap">${dateStr}</td>
-      <td><div style="font-weight:500;font-size:12px">${tx.comercio}</div>${tx.notas?`<div style="font-size:10px;color:#94a3b8">${tx.notas}</div>`:""}</td>
-      <td>
-        <span class="badge" style="background:${bg};color:${fg}" onclick="showCatSelect(${tx.id})" id="badge-${tx.id}">${tx.categoria}</span>
-        <select class="cat-select" id="sel-${tx.id}" style="display:none" onchange="changeCat(${tx.id},this.value)" onblur="hideCatSelect(${tx.id})">${catOpts}</select>
-      </td>
-      <td style="text-align:right;font-weight:600;white-space:nowrap">${fmt(tx.monto)}</td>
-    </tr>`;
-  }).join("");
-}
-
-function toggleSel(id,checked){
-  sel[id]=checked;
-  const row=document.getElementById("row-"+id);
-  if(row)row.className=checked?"":"dimmed";
-  updateTotals(); renderKPIs();
-}
-function selectAll(val){txs.forEach(t=>{sel[t.id]=val;});renderTable();updateTotals();renderKPIs();}
-function updateTotals(){
+function renderReview(){renderKPIs();renderTable();updateTotals();}
+function renderKPIs(){
   const selTxs=txs.filter(t=>sel[t.id]);
   const total=selTxs.reduce((s,t)=>s+t.monto,0);
-  document.getElementById("selCount").textContent=selTxs.length+"/"+txs.length+" seleccionadas";
-  document.getElementById("totalAmount").textContent=fmt(total);
-  document.getElementById("footerTotal").textContent=fmt(total);
-  document.getElementById("syncBtn").textContent=`Enviar ${selTxs.length} gastos → Notion`;
+  const bycat={};selTxs.forEach(t=>{bycat[t.categoria]=(bycat[t.categoria]||0)+t.monto;});
+  const top=Object.entries(bycat).sort((a,b)=>b[1]-a[1]).slice(0,4);
+  document.getElementById("kpiGrid").innerHTML=top.map(([cat,sum])=>{const[bg,fg]=CAT_CLR[cat]||["#f1f5f9","#475569"];return`<div class="kpi" style="background:${bg}"><div class="kpi-label">${cat}</div><div class="kpi-value" style="color:${fg}">${fmt(sum)}</div><div class="kpi-sub">${total>0?((sum/total)*100).toFixed(1):0}%</div></div>`;}).join("");
 }
+function renderTable(){
+  document.getElementById("txBody").innerHTML=txs.map(tx=>{
+    const[bg,fg]=CAT_CLR[tx.categoria]||["#f1f5f9","#475569"];
+    const dateStr=(tx.fecha||"").slice(5).replace("-","/");
+    const catOpts=CATS.map(c=>`<option value="${c}"${c===tx.categoria?" selected":""}>${c}</option>`).join("");
+    return`<tr class="${sel[tx.id]?"":"dimmed"}" id="row-${tx.id}"><td><input type="checkbox" ${sel[tx.id]?"checked":""} onchange="toggleSel(${tx.id},this.checked)"/></td><td style="color:#94a3b8;white-space:nowrap">${dateStr}</td><td><div style="font-weight:500;font-size:12px">${tx.comercio}</div>${tx.notas?`<div style="font-size:10px;color:#94a3b8">${tx.notas}</div>`:""}</td><td><span class="badge" style="background:${bg};color:${fg}" onclick="showCatSelect(${tx.id})" id="badge-${tx.id}">${tx.categoria}</span><select class="cat-select" id="sel-${tx.id}" style="display:none" onchange="changeCat(${tx.id},this.value)" onblur="hideCatSelect(${tx.id})">${catOpts}</select></td><td style="text-align:right;font-weight:600;white-space:nowrap">${fmt(tx.monto)}</td></tr>`;
+  }).join("");
+}
+function toggleSel(id,checked){sel[id]=checked;const row=document.getElementById("row-"+id);if(row)row.className=checked?"":"dimmed";updateTotals();renderKPIs();}
+function selectAll(val){txs.forEach(t=>{sel[t.id]=val;});renderTable();updateTotals();renderKPIs();}
+function updateTotals(){const selTxs=txs.filter(t=>sel[t.id]);const total=selTxs.reduce((s,t)=>s+t.monto,0);document.getElementById("selCount").textContent=selTxs.length+"/"+txs.length+" seleccionadas";document.getElementById("totalAmount").textContent=fmt(total);document.getElementById("footerTotal").textContent=fmt(total);document.getElementById("syncBtn").textContent=`Enviar ${selTxs.length} gastos → Notion`;}
 function showCatSelect(id){document.getElementById("badge-"+id).style.display="none";const s=document.getElementById("sel-"+id);s.style.display="inline-block";s.focus();}
 function hideCatSelect(id){document.getElementById("badge-"+id).style.display="inline-block";document.getElementById("sel-"+id).style.display="none";}
 function changeCat(id,cat){txs=txs.map(t=>t.id===id?{...t,categoria:cat}:t);renderTable();renderKPIs();}
-
-async function syncNotion() {
-  const notionKey = getKey("clartu_notion");
-  if (!notionKey) { document.getElementById("syncErr").textContent = "Configura tu token de Notion."; toggleKeys(); return; }
-  const selTxs = txs.filter(t=>sel[t.id]);
-  if (!selTxs.length) return;
-  document.getElementById("syncBtn").disabled = true;
-  document.getElementById("syncBtn").textContent = "Enviando...";
-  document.getElementById("syncErr").textContent = "";
-  let ok = 0, fail = 0;
-
-  for (const tx of selTxs) {
-    try {
-      const r = await fetch("/api/notion?path=pages", {
-        method: "POST",
-        headers: {
-          "Authorization": "Bearer " + notionKey,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          parent: {database_id: NOTION_DB},
-          properties: {
-            Origen: {title:[{text:{content:tx.comercio}}]},
-            Monto: {number: tx.monto},
-            Etiqueta: {select:{name: CAT_MAP[tx.categoria]||"Servicios"}},
-            Fecha: {date:{start: tx.fecha}}
-          }
-        })
-      });
-      if (r.ok) ok++; else fail++;
-    } catch { fail++; }
+async function syncNotion(){
+  const notionKey=getKey("clartu_notion");
+  if(!notionKey){document.getElementById("syncErr").textContent="Configura tu token de Notion.";toggleKeys();return;}
+  const selTxs=txs.filter(t=>sel[t.id]);if(!selTxs.length)return;
+  document.getElementById("syncBtn").disabled=true;document.getElementById("syncBtn").textContent="Enviando...";document.getElementById("syncErr").textContent="";
+  let ok=0,fail=0;
+  for(const tx of selTxs){
+    try{
+      const r=await fetch("/api/notion?path=pages",{method:"POST",headers:{"Authorization":"Bearer "+notionKey,"Content-Type":"application/json"},body:JSON.stringify({parent:{database_id:NOTION_DB},properties:{Origen:{title:[{text:{content:tx.comercio}}]},Monto:{number:tx.monto},Etiqueta:{select:{name:CAT_MAP[tx.categoria]||"Servicios"}},Fecha:{date:{start:tx.fecha}}}})});
+      if(r.ok)ok++;else fail++;
+    }catch{fail++;}
   }
-
-  document.getElementById("syncBtn").disabled = false;
-  updateTotals();
+  document.getElementById("syncBtn").disabled=false;updateTotals();
   showNotice(`✅ ${ok} gastos enviados${fail>0?" ("+fail+" fallaron)":""}`);
 }
-
-function exportCSV() {
-  const selTxs = txs.filter(t=>sel[t.id]);
-  const rows = ["Fecha,Comercio,Categoría,Monto,Notas",
-    ...selTxs.map(t=>`${t.fecha},"${t.comercio}","${t.categoria}",${t.monto},"${t.notas||""}"`)
-  ];
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(new Blob([rows.join("\n")],{type:"text/csv"}));
-  a.download = "gastos_clartu.csv"; a.click();
-}
-
-function reset() {
-  txs=[]; sel={};
-  hide("reviewSection"); show("uploadSection");
-  document.getElementById("fileInput").value="";
-  document.getElementById("uploadErr").textContent="";
-}
+function exportCSV(){const selTxs=txs.filter(t=>sel[t.id]);const rows=["Fecha,Comercio,Categoría,Monto,Notas",...selTxs.map(t=>`${t.fecha},"${t.comercio}","${t.categoria}",${t.monto},"${t.notas||""}"`)];const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([rows.join("\n")],{type:"text/csv"}));a.download="gastos_clartu.csv";a.click();}
+function reset(){txs=[];sel={};hide("reviewSection");show("uploadSection");document.getElementById("fileInput").value="";document.getElementById("uploadErr").textContent="";}
 </script>
 </body>
 </html>
