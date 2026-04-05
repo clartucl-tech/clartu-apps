@@ -157,13 +157,13 @@ function renderPeriodo(){
 
   // Gastos del año de la liquidación (o todos si no hay fecha)
   const year=p?.fecha?p.fecha.slice(0,4):null;
-  const gastosAno=year?gastos.filter(g=>(gp(g,"date:Fecha:start")||"").startsWith(year)):gastos;
+  const gastosAno=gastos; // Mostrar todos sin filtro de año
 
   // Gastos del mes exacto de la liquidación
   const gastosP=p?.fecha?gastos.filter(g=>(gp(g,"date:Fecha:start")||"").startsWith(p.fecha.slice(0,7))):gastos;
 
   // Usar según vista
-  const gastosVista=vistaActual==="ano"?gastosAno:gastosP.length>0?gastosP:gastosAno;
+  const gastosVista=gastos; // Siempre mostrar todos los gastos
 
   const totalG=gastosVista.reduce((s,g)=>s+(gp(g,"Monto")||0),0);
   const bycat={};gastosVista.forEach(g=>{const c=gp(g,"Etiqueta")||"Otro";bycat[c]=(bycat[c]||0)+(gp(g,"Monto")||0);});
