@@ -199,7 +199,7 @@ function renderPeriodo(){
   <div class="kpi-grid">
     <div class="kpi" style="background:#eff6ff"><div class="icon">💰</div><div class="lbl">Sueldo bruto</div><div class="val" style="color:#1d4ed8">${fmt(p.bruto)}</div><div class="sub">AFP ${fmt(p.afp)} · Salud ${fmt(p.salud)}</div></div>
     <div class="kpi" style="background:#f0fdf4"><div class="icon">💵</div><div class="lbl">Sueldo líquido</div><div class="val" style="color:#166534">${fmt(p.liquido)}</div><div class="sub">Impuesto: ${fmt(p.impuesto)}</div></div>
-    <div class="kpi" style="background:#fef2f2"><div class="icon">💸</div><div class="lbl">Total gastos</div><div class="val" style="color:#dc2626">${fmt(totalG)}</div><div class="sub">${gastosVista.length} transacciones</div></div>
+    <div class="kpi" style="background:#fef2f2"><div class="icon">💸</div><div class="lbl">Total gastos</div><div class="val" style="color:#dc2626">${fmt(totalG)}</div><div class="sub">${gastosVista.length} transacciones (acumulado)</div></div>
     <div class="kpi" style="background:#f5f3ff"><div class="icon">🏦</div><div class="lbl">Capacidad APV</div><div class="val" style="color:#6d28d9">${fmt(Math.max(0,flujo))}</div><div class="sub">APV sugerido: ${fmt(apvO)}/mes</div></div>
   </div>
 
