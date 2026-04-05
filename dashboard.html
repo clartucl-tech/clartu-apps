@@ -162,7 +162,7 @@ function renderPeriodo(){
   // Gastos por mes (todos los años)
   const byMes=Array(12).fill(0);
   gastosVista.forEach(g=>{
-    const f=gp(g,"date:Fecha:start")||"";
+    const f=gp(g,"Fecha")||"";
     const m=parseInt(f.slice(5,7))-1;
     if(m>=0&&m<12)byMes[m]+=(gp(g,"Monto")||0);
   });
@@ -259,7 +259,7 @@ function renderPeriodo(){
     </div>
     <div style="overflow-x:auto"><table>
       <thead><tr><th>Fecha</th><th>Comercio</th><th>Categoría</th><th style="text-align:right">Monto</th></tr></thead>
-      <tbody>${gastosVista.sort((a,b)=>(gp(b,"date:Fecha:start")||"").localeCompare(gp(a,"date:Fecha:start")||"")).slice(0,30).map(g=>{const cat=gp(g,"Etiqueta")||"";const c=CAT_CLR[cat]||"#6366f1";return`<tr><td style="color:#94a3b8;white-space:nowrap">${(gp(g,"date:Fecha:start")||"").slice(5).replace("-","/")}</td><td style="font-weight:500">${gp(g,"Origen")||""}</td><td><span class="badge" style="background:${c}20;color:${c}">${cat}</span></td><td style="text-align:right;font-weight:600;white-space:nowrap">${fmt(gp(g,"Monto"))}</td></tr>`;}).join("")}</tbody>
+      <tbody>${gastosVista.sort((a,b)=>(gp(b,"date:Fecha:start")||"").localeCompare(gp(a,"date:Fecha:start")||"")).slice(0,30).map(g=>{const cat=gp(g,"Etiqueta")||"";const c=CAT_CLR[cat]||"#6366f1";return`<tr><td style="color:#94a3b8;white-space:nowrap">${(gp(g,"Fecha")||"").slice(5).replace("-","/")}</td><td style="font-weight:500">${gp(g,"Origen")||""}</td><td><span class="badge" style="background:${c}20;color:${c}">${cat}</span></td><td style="text-align:right;font-weight:600;white-space:nowrap">${fmt(gp(g,"Monto"))}</td></tr>`;}).join("")}</tbody>
     </table></div>
   </div>`:""}
 
